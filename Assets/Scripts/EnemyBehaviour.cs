@@ -11,7 +11,7 @@ public class EnemyBehaviour : SKBehaviour {
 	string weakness;
 
 	protected override void HandleObjectWithTypeCollide (GameObject target, string objectType) {
-		if (target.GetComponentInParent<KittenBehaviour>()) {
+		if (!target.GetComponent<RangedAttackModule>() && target.GetComponentInParent<KittenBehaviour>()) {
 			Attack(KittenBehaviour.kitten);
 		} else if (objectType == weakness) {
 			Destroy(gameObject);

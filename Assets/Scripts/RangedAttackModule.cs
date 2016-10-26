@@ -13,7 +13,7 @@ public class RangedAttackModule : SKBehaviour {
 		kitten = GetComponentInParent<KittenBehaviour>();
 	}
 		
-	public override void OnCollidedWithHitBox (GameObject target, string objectType) {
+	protected override void HandleObjectWithTypeCollide (GameObject target, string objectType) {
 		kitten.CheckToAttack(target, objectType);
 	}
 }

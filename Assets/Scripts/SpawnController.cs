@@ -37,7 +37,7 @@ public class SpawnController : SKBehaviour {
 
 	void SpawnObject () {
 		string objectType;
-		GameObject prefab = Random.Range(0, 2) == 0 ? GetRandomEnemy(out objectType) : GetRandomFood(out objectType);
+		GameObject prefab = Random.Range(0, 3) == 0 ? GetRandomFood(out objectType) : GetRandomEnemy(out objectType);
 		if (prefab) {
 			GameObject target;
 			SKBehaviour behaviour = (target = (Instantiate(prefab) as GameObject)).GetComponent<SKBehaviour>();

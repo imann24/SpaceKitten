@@ -15,12 +15,15 @@ public class KittenBehaviour : SKBehaviour {
 	private static string[] attacks = new string[]{"Ice Cubes", "Fire Ball", "Lightning Bolt"};
 
 	public Image healthBar;
+	public Image attackCooldownBar;
 	public GameObject IceAttack;
 	public GameObject FireAttack;
 	public GameObject LightningAttack;
 
 	int maxHealth = 100;
 	int health;
+	public float attackCooldownTime = 2.0f;
+	bool attackCooldownActive = false;
 
 	private bool ShouldAttack (string objectType) {
 		// TODO: Return true if the object is in the enemies array
@@ -34,12 +37,19 @@ public class KittenBehaviour : SKBehaviour {
 		
 	private string GetAttackType (string enemyType) {
 		/* TODO: Return the correct attack type:
-		 * Iciciles kill Dragons
+		 * Ice Cubes kill Dragons
 		 * Fire Balls kill Wolves
 		 * Lightning Bolts kill Sharks
 		 */
-		return string.Empty;
+		return string.Empty;	
 	}
+
+
+	private GameObject GetAttack (string attackType) {
+		// TODO: Return the attack corresponding to the attack name
+		return null;
+	}
+
 
 	void Start () {
 		kitten = this;
@@ -50,11 +60,6 @@ public class KittenBehaviour : SKBehaviour {
 		if (ShouldAttack(objectType)) {
 			Attack(target, objectType);
 		}
-	}
-
-	private GameObject GetAttack (string attackType) {
-		// TODO: Return the attack corresponding to the attack name
-		return null;
 	}
 		
 	public static string RandomFood () {
@@ -72,17 +77,34 @@ public class KittenBehaviour : SKBehaviour {
 	public override void OnCollidedWithHitBox (GameObject target, string objectType) {
 		if (ShouldEat(objectType)) {
 			Eat(target);
-		} else {
+		} else if (target.GetComponent<RangedAttackModule>() == null) {
 			Destroy(target);
 		}
 	}
 
+	private IEnumerator AttackCooldown () {
+		attackCooldownActive = true;
+		float timer = 0;
+		attackCooldownBar.fillAmount = 1;
+		while (timer <= attackCooldownTime) {
+			attackCooldownBar.fillAmount = 1 - timer / attackCooldownTime;
+			yield return new WaitForEndOfFrame();
+			timer += Time.deltaTime;
+		}
+		attackCooldownBar.fillAmount = 0;
+		attackCooldownActive = false;	
+	}
+
 	private void Attack (GameObject enemy, string enemyType) {
-		string attackType = GetAttackType(enemyType);
-		GameObject attackPrefab = GetAttack(attackType);
-		if (attackPrefab) {
-			AttackBehaviour attack = (Instantiate(attackPrefab) as GameObject).GetComponent<AttackBehaviour>();
-			attack.MoveTowards(enemy);
+		if (!attackCooldownActive) {
+			string attackType = GetAttackType(enemyType);
+			GameObject attackPrefab = GetAttack(attackType);
+			if (attackPrefab) {
+				AttackBehaviour attack = (Instantiate(attackPrefab) as GameObject).GetComponent<AttackBehaviour>();
+				attack.SetObjectType(attackType);
+				attack.MoveTowards(enemy);
+			}
+			StartCoroutine(AttackCooldown());
 		}
 	}
 
@@ -112,7 +134,9 @@ public class KittenBehaviour : SKBehaviour {
 
 	private void Eat (GameObject foodObject) {
 		FoodBehaviour food = foodObject.GetComponent<FoodBehaviour>();
-		Heal(food.Eat());
+		if (food) {
+			Heal(food.Eat());
+		}
 	}
 
 	private bool HasPerished () {

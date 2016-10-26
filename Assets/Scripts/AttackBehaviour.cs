@@ -7,9 +7,11 @@ using UnityEngine;
 using System.Collections;
 
 public class AttackBehaviour : SKBehaviour {
-	public override void OnCollidedWithHitBox (GameObject target, string objectType) {
+
+	protected override void HandleObjectWithTypeCollide (GameObject target, string objectType) {
 		if (target.GetComponent<EnemyBehaviour>()) {
 			Destroy(gameObject);
 		}
 	}
+
 }
