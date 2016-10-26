@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &101414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 432500}
+  - 114: {fileID: 11430496}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &432500
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101414}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.17, y: 5.64, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11430496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293b48cc5d1d6439dbf714c3df8b2639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 
+  speed: 1
+  Dragon: {fileID: 158038, guid: 3060a570217e34987899b9206321d3c3, type: 2}
+  Wolf: {fileID: 116904, guid: d26448a58327c4dfc89f8118629b3cbd, type: 2}
+  Shark: {fileID: 117464, guid: a4c189ba915e34db080c53466b930aa3, type: 2}
+  Milk: {fileID: 160540, guid: f7a44fedeb9154de191aaf43e95f344c, type: 2}
+  Tuna: {fileID: 141184, guid: 57f12e6be290043f8844d4f77cdb39e7, type: 2}
+  Friskies: {fileID: 137796, guid: 5c33ffc3fb3084496ae61d9eae93b47c, type: 2}
+  spawnDelay: 2.5
+  spawningEnabled: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 101414}
+  m_IsPrefabParent: 1
